@@ -45,7 +45,8 @@ app.use(express.urlencoded({extended:true})); // makes data send to the API safe
 // but a React app at localhost:3001 or SomeRandomWebsite.com can NOT communicate to this API. 
 var corsOptions = {
     // the frontend can only talk to these domains, so if your app deploy on different domain, you should add to here
-    origin: ["http://localhost:3000", "https://deployedApp.com"], // only your backend api need to know your front end url, front end does need to know back end
+    origin: ["http://localhost:3000", "https://deployedApp.com"], // only your backend api need to know your front end url, 
+    // front end does need to know back end
     optionsSuccessStatus: 200
 }
 app.use(cors(corsOptions));
@@ -83,12 +84,13 @@ app.get('/', (req, res) => { // the '/' is home page, req could be your authoriz
 });
 
 
-
-
 // ⭐️import our BlogRoutes file, if we have more specific route all import in server⭐️ 
 const importedBlogRouting = require('./Blogs/BlogsRoutes'); 
 app.use('/blogs', importedBlogRouting); // use 'use' keyword to execute routes (middleware) in express app
 // the param(blogs) can be any thing, just make sure match the url param e.g. localhost:55000/blogs/1234
+
+const importedUserRouting = require('./Users/UserRoutes')
+app.use('/users',importedUserRouting)  // anything start with /users should go ./Users/UserRoutes
 
 
 // Notice that we're not calling app.listen() anywhere in here.
