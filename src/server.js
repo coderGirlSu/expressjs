@@ -90,6 +90,9 @@ const importedBlogRouting = require('./Blogs/BlogsRoutes');
 app.use('/blogs', importedBlogRouting); // use 'use' keyword to execute routes (middleware) in express app
 // the param(blogs) can be any thing, just make sure match the url param e.g. localhost:55000/blogs/1234
 
+const importedUserRouting = require('./Users/UserRoutes')
+app.use('/users',importedUserRouting)  // anything start with /users should go ./Users/UserRoutes
+
 
 // Notice that we're not calling app.listen() anywhere in here.
 // This file contains just the setup/config of the server,
