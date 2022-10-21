@@ -51,6 +51,21 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 
+// require .env and initialize it 
+require('dotenv').config() // load up .env file
+
+// console.log("Firebase project ID is: " + process.env.FIREBASE_ADMIN_PROJECT_ID)
+
+const firebaseAdmin = require('firebase-admin')// load up firebase // require firebase admin
+firebaseAdmin.initializeApp({ 
+    credential:firebaseAdmin.credential.cert({ // build a certificate and give all of the custom data
+        "projectId": process.env.FIREBASE_ADMIN_PROJECT_ID,
+        "privateKey":process.env.FIREBASE_ADMIN_PRIVATE_KEY.replace(/\\n/g, '\n'),
+        "clientEmail":process.env.FIREBASE_ADMIN_CLIENT_EMAIL
+    }) 
+})
+
+
 // -------------------- Routes --------------------------------
 
 // Actual server behaviour
@@ -66,6 +81,9 @@ app.get('/', (req, res) => { // the '/' is home page, req could be your authoriz
     });
     res.send('')
 });
+
+
+
 
 // ⭐️import our BlogRoutes file, if we have more specific route all import in server⭐️ 
 const importedBlogRouting = require('./Blogs/BlogsRoutes'); 
