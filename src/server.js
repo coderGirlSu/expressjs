@@ -1,3 +1,4 @@
+// -------------------- config --------------------------------
 // server.js can configure things (index.js just entrypoint can't do anything)
 // import our packages we have'v been installed
 const express = require('express'); 
@@ -44,11 +45,13 @@ app.use(express.urlencoded({extended:true})); // makes data send to the API safe
 // but a React app at localhost:3001 or SomeRandomWebsite.com can NOT communicate to this API. 
 var corsOptions = {
     // the frontend can only talk to these domains, so if your app deploy on different domain, you should add to here
-    origin: ["http://localhost:3000", "https://deployedApp.com"], 
+    origin: ["http://localhost:3000", "https://deployedApp.com"], // only your backend api need to know your front end url, front end does need to know back end
     optionsSuccessStatus: 200
 }
 app.use(cors(corsOptions));
 
+
+// -------------------- Routes --------------------------------
 
 // Actual server behaviour
 // This is frontend client (React, Postman, cURL) talking to API
@@ -64,12 +67,17 @@ app.get('/', (req, res) => { // the '/' is home page, req could be your authoriz
     res.send('')
 });
 
+// ⭐️import our BlogRoutes file, if we have more specific route all import in server⭐️ 
+const importedBlogRouting = require('./Blogs/BlogsRoutes'); 
+app.use('/blogs', importedBlogRouting); // use 'use' keyword to execute routes (middleware) in express app
+// the param(blogs) can be any thing, just make sure match the url param e.g. localhost:55000/blogs/1234
+
 
 // Notice that we're not calling app.listen() anywhere in here.
 // This file contains just the setup/config of the server,
 // so that the server can be used more-simply for things like Jest testing.
 // Because everything is bundled into app, 
 // we can export that and a few other important variables.
-module.exports = {
+module.exports = { // expose Node.js modules
     app, PORT, HOST
 }

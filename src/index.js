@@ -1,6 +1,6 @@
 // This is the starting point of the API
 
-var {app, PORT, HOST} = require('./server');
+var {app, PORT, HOST} = require('./server'); // import server file and assign to app, port and host variable in this file
 
 // Separate the "app.listen" from the rest of the server config & setup.
 // This allows us to simplify how the server unit testing is gonna work.
