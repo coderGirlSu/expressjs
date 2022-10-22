@@ -1,4 +1,4 @@
-// This is the starting point of the API
+// This is the starting point of the API, can'r config anything, server.js for config
 
 var {app, PORT, HOST} = require('./server'); // import server file and assign to app, port and host variable in this file
 
