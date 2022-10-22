@@ -70,7 +70,7 @@ firebaseAdmin.initializeApp({
 // connect to mongoose?
 const {databaseConnector} = require('./database');
 
-if (process.env.NODE_ENV != "test") {
+if (process.env.NODE_ENV != "test") { // ⭐️we should set up database in cloud so we can go DATABASE_URI environment instead of localhost
     const DATABASE_URI = process.env.DATABASE_URI || "mongodb://localhost:27017/ExpressLessonOctLocal";
     databaseConnector(DATABASE_URI).then(() => { // call databaseConnector to check what database should connect to
         // if database connection succeeded, log a nice success message 
